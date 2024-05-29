@@ -93,9 +93,9 @@ scatter(xr, yr, label="", framestyle=:none, aspect_ratio=1.0, overwrite_figure=f
 For inviscid analyses, only the angle of attack is required. For viscous analyses, the Reynolds number must also be specified.
 """
 # set operating conditions
-alpha = -9:1:14 # range of angle of attacks, in degrees
-re = 1e5 # Reynolds number
-
+alpha = -8:1:25 # range of angle of attacks, in degrees
+re = 2.2e6 # Reynolds number
+mach = 0.13
 
 #--------------------------AIRFOIL ANALYSIS----------------------------------#
 """
@@ -144,8 +144,8 @@ One approach to calculate these derivatives would be to use the finite differenc
 
 # set operating conditions
 alpha = -9:1:14
-re = 1e5
-mach = 0.0
+re = 2.2e6
+mach = 0.13
 
 # set step size
 h = 1e-6
