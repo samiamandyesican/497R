@@ -31,7 +31,7 @@ $$
 \red{P} + \frac{\rho}{2}\red{V^2}+\rho g h = constant
 $$
 
-At around 12&deg;, the air is too INERTIAL to accelerate over the airfoil fast enough to fill the larger low pressure wake. This results in flow separation, also known as stall, (see image below) and rather than just air being accelerated into the wake, a vacuum remains that increasingly pulls the airfoil backwards (increasing drag) rather than provide lift as the angle of attack continues to increase. 
+At around 12&deg;, the air is too inertial to accelerate around the airfoil fast enough to fill the low pressure wake. This results in flow separation, also known as stall, (see image below) and rather than air being accelerated into the wake, a turbulent vacuum remains that increasingly pulls the airfoil backwards (increasing drag) rather than provide lift as the angle of attack continues to increase. 
 
 ![alt text](image-20.png)
 
@@ -40,13 +40,15 @@ At around 12&deg;, the air is too INERTIAL to accelerate over the airfoil fast e
 As angle of attack increases there is an increase in the drag coefficient. This can be attributed to because there is a greater area of the lower surface of the airfoil normal to the freestream, and therefore more air pushing the airfoil backwards. The sharp increase in drag at high angles of attack can also be attributed to flow separation (stall) as described in the previous section.
 
 ***Moment Coefficient***  
-We can see that this airfoil has a negative moment across angles of attack. This is common to most airfoils. Note that a negative moment for an airfoil means that it tends to pitch the aircraft down around the quarter chord. This may be surpising since it seems intuitive that since the center of lift is normally at the quarter-chord, the airfoil would have a positive moment. However, if you look at the pressure distribution across an airfoil's surface (see image below), you can see that there is low pressure coefficient farther towards the trailing edge. This pressure has more influence on moment since $M= r \times F$ and there is a longer moment arm. 
+We can see that this airfoil has a negative moment across angles of attack. This is common to most airfoils. Note that a negative moment for an airfoil means that it tends to pitch the aircraft down. This may be surpising since it seems intuitive that since the center of lift is normally at the quarter-chord, the airfoil would have a positive moment. However, if you look at the pressure distribution across an airfoil's surface (see image below), you can see that there is still negative pressure coefficient farther towards the trailing edge along the upper edge of the airfoil. This pressure has more influence on moment since $M= r \times F$ and there is a longer moment arm. 
 
 ![alt text](image-22.png)
 
-We can also see that after stall the moment increases sharply. This is because on the upper surface of the airfoil the entire surface is experiencing a low pressure wake while on the lower surface the free stream is directly impacting the surface even near the traling edge??????????????????????????????????????????????
+As the airfoil approaches stall, the pressure distribution on the lower surface stays pretty much the same while on the upper surface as flow begins to separate the negative pressure becomes more skewed towards the leading edge as the separation point travels from the trailing edge towards the leading edge. This means the overall moment becomes less and less negative, approaching a maximum close to zero at stall and then quickly plunging negative as the pressure distribution across the entire upper surface becomes the same (see plots below. different airfoil, but same principle). In the plots below you can see that between alpha = 20 and alpha =24 the moment would become much more negative (as we can see in our plot as alpha exceeds 18 degrees or so)
 
-So, generally we see that increasing angle of attack increases both lift and drag, up to the point of stall at which drag takes over. Therefore it's clear to see that an airfoil has a practical operating range or angles, outside of which the airfoil becomes pretty much useless. 
+![alt text](image-23.png)
+
+So, generally we see that increasing angle of attack increases both lift and drag, up to the point of stall at which drag takes over. Therefore it's clear to see that an airfoil has a practical operating range or angles, outside of which the airfoil becomes pretty much useless (at least if your goal is to generate lift).
 
 ### Comparison to experimental data
 Now I'm going to explore how well XFoil compares to real life. In other words I want to see the limits of XFoil so I can tell when it's useful and when it's inaccurate. I will first compare to NASA experimental data cited at the end of this document, using a Reynold's number 2.2e6 and Mach number 0.13. These two parameters are very important to ensure that the fluid is going to behave accurately in the simulation compared to the experiment because. Particularly Reynold's number since it describes the ratio between kinetic and viscous forces, which is the main factor in determining at what angle stall will occur. 
@@ -77,7 +79,7 @@ Next I wanted to see how well XFoil handles a range of Reynolds' numbers. From t
 <img src="ReSweepcd.png" alt="ReSweepcd.png" width="49%" />
 <img src="ReSweepcm.png" alt="ReSweepcm.png" width="49%" />
 
-We can see pretty clearly from the graphs that increasing reynolds' number delays stall / flow separation (since a less viscous fluid is more easily able to accelerate around the airfoil without as much resistance). Therefore for high reynold's numbers, airfoils can use a wider range of angles of attack without stalling out. We also see that the airfoils have about the same slope before stall, which is pretty interesting. ???????????????????? (nondimensionalization (equation for lift coefficient))
+We can see pretty clearly from the graphs that increasing reynolds' number delays stall / flow separation (since a less inertial fluid is more easily able to accelerate around the airfoil without as much resistance). Therefore for high reynold's numbers, airfoils can use a wider range of angles of attack without stalling out. We also see that the airfoils have about the same slope before stall, which is a consequence of non-dimensionalization for the various coefficients. 
 
 ### Exploring Maximum Thickness
 Next I wanted to see what happens if we change of the shape of the airfoil itself. How can it be optimized? First I looked at changing the thickness by generating different NACA 4-series (see graphs below).
@@ -87,7 +89,13 @@ Next I wanted to see what happens if we change of the shape of the airfoil itsel
 <img src="image-13.png" alt="ReSweepcm.png" width="49%" />
 <img src="image-2.png" alt="ReSweepcm.png" width="49%" />
 
-As it turns out, XFoil really doesn't like airfoils that are extremely thin. I would guess that it doesn't like the sharp edges????????????????? Other than that thicker airfoils decrease lift and increase drag, which seems unfavorable. However extremely thin airfoils are very angry ????????????????? (thin airfoils stall abruptly while thicker ones are mor gradual) (thin airfoils have points close to the vortexes, which go to infinity as r goes to 0 (gamma x r thing get equation))
+As it turns out, XFoil really doesn't like airfoils that are extremely thin. This is likely because XFoil is making calculations very close to the center of the vortices used in panel method to simulate the shape of the airfoil. They have the velocity
+$$
+-\frac{\Gamma \times \hat{r}}{2 \pi r}
+$$
+and so as a result since computers aren't 100% precise there's going to be significant numerical instability as r approaches 0. 
+
+Other than that thicker airfoils decrease lift and increase drag, which seems unfavorable. However they also have less abrupt stalls. Near the linear region all of the airfoils behave pretty much the same other than the largest airfoil. I would suspect this is because the airfoil is so thick that it causes some flow separation evean at low angles of attack. In general, increasing thickness decreases lift to drag ratio but also softens stall.
 
 
 ### Exploring Maximum Camber
@@ -99,7 +107,9 @@ Next I wanted to explore how changing the curviness (camber) changed airfoil per
 <img src="image-14.png" alt="ReSweepcm.png" width="49%" />
 <img src="image-4.png" alt="ReSweepcm.png" width="49%" />
 
-From the graphs it seems like increasing camber increases lift ??????????????? which is great. However it also leads to more drag at lower angles of attack. This makes sense since as the airfoil is so curved, rotating it would make the lower surface more perpendicular to the free stream than if it weren't curved. Looking at cl/cd we can see that for very low angles of attack, high camber generates a greater ratio of lift to drag, but for higher angles of attack lower camber tends to do better. 
+From the graphs it seems like increasing camber increases lift. However it also leads to more drag and eventually stall at lower angles of attack. This makes sense since as the airfoil is so curved, rotating it would make the lower surface more perpendicular to the free stream than if it weren't curved. Additionally the curved upper edge would be more likely to have flow separation at lower angles of attack. Looking at cl/cd we can see that for very low angles of attack, high camber generates a greater ratio of lift to drag, but for higher angles of attack lower camber tends to do better up to a certain point (around 20 degrees) at which they all pretty much converge. At this point both the least and most cambered have stalled out competely and so the shape doesn't do much difference. 
+
+In general we can conclude that highly cambered airfoils increase lift, with drag and stall taking over at lower angles compared to a non-cambered airfoil. 
 
 ### Exploring Maximum Camber Position
 
@@ -112,13 +122,11 @@ Lastly I wanted to explore the effects of camber position on airfoil performance
 <img src="image-11.png" alt="ReSweepcm.png" width="49%" />
 <img src="image-12.png" alt="ReSweepcm.png" width="49%" />
 
-From these graphs, since camber position doesn't seem to make a huge difference on anything else, I'd want to minimize moment which still keeping it negative for consistency. Therefore having a camber position around a quarter chord seems best.
+From these graphs, since camber position doesn't seem to make a huge difference on anything else, I'd want to minimize moment which still keeping it negative for consistency. Therefore having a camber position around a quarter chord seems most conventional.
 
 ## Conclusion
 
-From the analyses and comparisons I've made I've come to a few conclusions about airfoil performance and the usefulness of XFoil. First, increasing angle of attack increases both lift and drag until stall, at which point drag takes over. Second, XFoil doesn't work very well for high angles of attack and low reynold's numbers. Third, generally a thinner airfoil is better up to a point when everything explodes ??????????????. Fourth, High camber generally creates more lift and is good for low angles of attack, but at high angles of attack there's a significant trade-off for higher drag. Fifth, camber position doesn't make a huge difference for anything except the moment, and upon analysis makes most sense to have around a quarter chord. 
-
-Overall I feel that I've greatly increased my understanding of airfoil performance under various parameters and am much more prepared to move into researching how to 
+From the analyses and comparisons I've made I've come to a few conclusions about airfoil performance and the usefulness of XFoil. First, increasing angle of attack increases both lift and drag until stall, at which point drag takes over. Second, XFoil doesn't work very well for high angles of attack and low reynold's numbers. Third, a thinner airfoil generates more lift but also has more aggressive stall. Fourth, High camber generally creates more lift and is good for low angles of attack, but at high angles of attack there's a significant trade-off for higher drag. Fifth, camber position doesn't make a huge difference for anything except the moment, and upon analysis makes most sense to have around a quarter chord. 
 
 ## Works Cited
 - http://www.airfoiltools.com/
