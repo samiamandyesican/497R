@@ -1,1 +1,1 @@
-Link to report
+[Link to report](.\README.md)
