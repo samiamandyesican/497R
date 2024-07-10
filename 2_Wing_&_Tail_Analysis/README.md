@@ -1,1 +1,1 @@
-[Link to report](.\README.md)
+[Link to report](.\airframe_analysis.ipynb)

@@ -1,4 +1,4 @@
-using VortexLattice, Plots
+using VortexLattice, Plots, Plots.PlotMeasures
 localpath = @__DIR__
 cd(localpath)
 include("vortex_lattice_functions_wing_only.jl")
@@ -94,6 +94,12 @@ for i in 0:reiterations
     L[i+1] = force(CL, Sref, Vinf)
     D[i+1] = force(CD, Sref, Vinf)
 
+    if i == 0
+        write_vtk("low-AR", surfaces; symmetric)
+    elseif i == reiterations
+        write_vtk("high-AR", surfaces; symmetric)
+    end
+
 end
 
 # plt1 = plot(AR, eff; xlabel="Aspect Ratio", ylabel="Inviscid Span Efficiency", leg=false)
@@ -103,7 +109,9 @@ end
 # plt5 = plot(AR, lift_drag_ratio; xlabel="Aspect Ratio", ylabel="Lift / Drag Coefficient Ratio", leg=false)
 # plt6 = plot(AR, L; xlabel="Aspect Ratio", ylabel="Lift", leg=false)
 # plt7 = plot(AR, D; xlabel="Aspect Ratio", ylabel="Drag", leg=false)
-plt = plot(AR, [eff C_Di C_L lift_drag_ratio L D], xlabel="Aspect Ratio", label=["Inviscid Span Efficiency" "Induced Drag Coefficient" "Lift Coefficient" "Lift / Drag Coefficient Ratio" "Lift" "Drag"], layout=(6,1), leg=:best, size=(600,1000))
-display(plt)
+
+# plt = plot(AR, [eff C_Di C_L lift_drag_ratio L D], xlabel="Aspect Ratio", markershape=:x, label=["Inviscid Span Efficiency" "Induced Drag Coefficient" "Lift Coefficient" "Lift / Drag Coefficient Ratio" "Lift" "Drag"], layout=(6,1), leg=:best, size=(700,2500), left_margin=20.0mm)
+# display(plt)
+# savefig("aspect_ratio-test.png")
 
 nothing

@@ -108,8 +108,54 @@ function aspect_ratio(yle, chord)
 end
 
 
+"""
+    force(CL, Sref, Vinf)
+
+Return the lift given lift coefficient, wing reference area, and freestream velocity.
+
+# Example
+```jldoctest
+julia> force(0.5, 20, 1)
+5.0
+```
+"""
 function force(CL, Sref, Vinf)
     return 0.5 * CL * Vinf^2 * Sref
+end
+
+
+"""
+    get_step_float(min, max, iterations)
+
+Return a list of equally spaced floats given a maximum value, minimum value, and number of iterations.
+
+# Example
+```jldoctest
+julia> get_step_float(3.0, 4.0, 7)
+7-element Vector{Float64}:
+ 3.0
+ 3.1666666666666665
+ 3.3333333333333335
+ 3.5
+ 3.6666666666666665
+ 3.833333333333333
+ 4.0
+```
+"""
+function get_step_float(min, max, iterations)
+
+    # get step size
+    step = (max - min) / (iterations - 1)
+    # initialize step matrix
+    steps = zeros(iterations)
+    steps[1] = min
+
+    for i in 2:iterations
+        steps[i] = min + (i - 1) * step
+    end
+
+    return steps
+
 end
 
 nothing
