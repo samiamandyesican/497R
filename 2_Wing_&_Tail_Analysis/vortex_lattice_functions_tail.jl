@@ -44,7 +44,8 @@ julia> mac_v([1.0, 2.0], [0.0, 0.3], [0.2, 4.0])
 ```
 """
 function mac_v(chord_v, xle_v, zle_v)
-    b = 2 * zle_v[2]
+    # For the origin of these formulas Google "mean aerodynamic center" images and see the plot I generated (https://www.desmos.com/calculator/xprjrkuzzk)
+    b = 2 * zle_v[2] # for this formula to work 'b' is twice the span of the vertical stabilizer.
     x = -chord_v[2] + (xle_v[2] + 2 * chord_v[2] + chord_v[1]) * ((chord_v[1] + 2 * chord_v[2]) / (3 * (chord_v[2] + chord_v[1])))
     z = b * (chord_v[1] + 2 * chord_v[2]) / (6 * (chord_v[2] + chord_v[1]))
     return [x, 0.0, z]

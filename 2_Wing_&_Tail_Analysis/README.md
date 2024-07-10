@@ -1,1 +1,1 @@
-[Link to report](.\airframe_analysis.ipynb)
+[Link to report](./airframe_analysis.ipynb)
