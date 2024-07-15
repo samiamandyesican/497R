@@ -2,7 +2,7 @@
 
 *Note: There is a wiki of unfamiliar terms in my 497R GitHub repository [here](https://github.com/samiamandyesican/497R/wiki).*
 
-## Introduction and Methods
+## Introduction
 
 My goal in this project is to understand how an airfoil works, and how it is influenced under various parameters. For this project we used XFoil to explore the effects of angle of attack, thickness, and camber as well as Reynold's number. Additionally, we compared results to experimental data.
 
