@@ -78,8 +78,8 @@ end
 
 # plot data and save results (replacing file of same name if it exists)
 plt = plot(data[:,1], data[:,2], xlabel="Angle of Attack (degrees)", ylabel="Lift Coefficient", leg=:best)
-save_path = "alpha_v_CL"
-rm(save_path, force=true)
-savefig(plt, save_path)
+# save_path = "alpha_v_CL"
+# rm(save_path, force=true)
+# savefig(plt, save_path)
 
 nothing
