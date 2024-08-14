@@ -60,6 +60,8 @@ Now I'm going to explore how well XFoil compares to real life. In other words I 
 From these images we can see that XFoil matches pretty well for lift coefficient and drag coefficient, although accuracy decreases at extreme angles of attack. This is unsurprising since the assumptions of panel theory break down when flow separates (the Kutta condition and irrotational flow for example, become unreasonable assumptions). The graph for moment coefficient v. lift coefficient however kind of seems all over the place. In the NASA paper it says that there were some discrepancies with their moment measurements and they weren't sure how to reconcile them, so perhaps it's not a problem with XFoil.  
 
 Other experimental data by Dr. Abbot (sited below) uses a Reynolds number of 5.7e6. The graphs are below.
+
+
 <img src="image-15.png" alt="ReSweepcm.png" width="49%" />
 <img src="image-16.png" alt="ReSweepcm.png" width="49%" />
 <img src="image-18.png" alt="ReSweepcm.png" width="49%" />

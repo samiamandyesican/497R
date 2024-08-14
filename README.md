@@ -5,6 +5,6 @@ FLOW Lab Research Spring-Summer
 
 [Airframe Analysis](/2_Wing_&_Tail_Analysis/README.md)
 
-[Airframe Design](/3_Wing_&_Tail_Design/README.md)
+[Airframe Design](/3_Wing_&_Tail_Design/wing_optimization_report.pdf)
 
-[Final Report](/4_Final_Report/README.md)
+[Final Presentation](/4_Final_Report/final_presentation.pptx)

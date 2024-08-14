@@ -39,10 +39,10 @@ trans = [10.0, 0.0, 0.0]
 
 # define iteration parameters
 iterations = 20 # number of iterations
-min_size_v = 1.0 # magnification of vertical stabilizer
-max_size_v = 1.0 # magnification of vertical stabilizer
-min_size_h = 0.5 # magnification of horizontal stabilizer
-max_size_h = 2.5 # magnification of horizontal stabilizer
+min_size_v = 0.5 # magnification of vertical stabilizer
+max_size_v = 2.5 # magnification of vertical stabilizer
+min_size_h = 1.0 # magnification of horizontal stabilizer
+max_size_h = 1.0 # magnification of horizontal stabilizer
 
     # horizontal stabilizer initial values
     xle_h = [0.0, 0.14]
@@ -166,7 +166,7 @@ end
 
 data_l = vcat(labels, data)
 
-# include("stability_plots.jl")
-# generate_plots(labels, data, "horizontal_scaling_only")
+include("stability_plots.jl")
+generate_plots(labels, data, "vertical_scaling_only")
 
 nothing

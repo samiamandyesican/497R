@@ -1,15 +1,15 @@
 """
-    ref_area_trap(yle, chord)
+    ref_area(yle, chord)
 
 Return the area of a wing given chord and leading edge y-coordinates.
 
 # Arguments
-- `yle::Vector`: 2-element vector of the root and tip y-coordinates for a wing leading edge.
-- `chord::Vector`: 2-element vector of the root and tip chord-lengths. 
+- `yle::Vector`: Vector of the y-coordinates for a wing leading edge from root to tip.
+- `chord::Vector`: Vector of the chord for a wing at each corresponding leading edge y-coordinate from root to tip.
 
 # Example
 ```jldoctest
-julia> ref_area_trap([0.0, 1.0], [2.0, 1.6])
+julia> ref_area([0.0, 1.0], [2.0, 1.6])
 3.6
 ```
 """
@@ -46,7 +46,7 @@ end
 """
     force(CL, Sref, Vinf)
 
-Return the lift given lift coefficient, wing reference area, and freestream velocity.
+Return the lift, drag, etc. given the corresponding coefficient, wing reference area, and freestream velocity.
 
 # Example
 ```jldoctest
@@ -54,8 +54,8 @@ julia> force(0.5, 20, 1)
 5.0
 ```
 """
-function force(CL, Sref, Vinf)
-    return 0.5 * CL * Vinf^2 * Sref
+function force(C, Sref, Vinf)
+    return 0.5 * C * Vinf^2 * Sref
 end
 
 
