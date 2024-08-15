@@ -1,0 +1,12 @@
+EXIT: Optimal Solution Found.
+xstar = [1.158953937269707, 1.1589494398673357, 1.0321804324508204, 0.8813544247245128, 0.5191080277239004]
+fstar = 0.02561881380995737
+info = Solve_Succeeded
+lift = 1.6999999834025452
+sd = 0.012817921294912426
+min error = 0.0037975156305995184
+max error = 0.01689183958013321
+min percent error = 1.7991258494388005
+max percent error = 12.912531752731175
+write_vtk successful.
+"C:\\Users\\samia\\Documents\\Personal & Hobbies\\Coding\\julia\\497R\\3_Wing_&_Tail_Design\\images\\test4x6.png"
